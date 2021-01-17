@@ -1,0 +1,10 @@
+.page-not-found {
+    text-align: center;
+    &_descr {
+        font-size: 2rem;
+        span {
+            font-size: 4rem;
+            font-weight: bold;
+        }
+    }
+}
