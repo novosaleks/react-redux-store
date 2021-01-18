@@ -23,6 +23,10 @@ const changeCount = (cartList, payload, quantity) => {
     ];
 };
 
+const getTotalValue = cartList => {
+    return cartList.reduce((acc, item) => acc + item.total, 0).toFixed(2);
+};
+
 const updateCart = (state, action) => {
 
     switch (action.type) {
@@ -42,6 +46,7 @@ const updateCart = (state, action) => {
             if (!isNewBook) {
                 return {
                     ...state.cart,
+                    total: getTotalValue(copyCartList),
                     cartList: copyCartList
                 };
             }
@@ -54,12 +59,12 @@ const updateCart = (state, action) => {
                 price: book.price,
             };
 
+            const cartList = [...state.cart.cartList, newItem];
+
             return {
                 ...state.cart,
-                cartList: [
-                    ...state.cart.cartList,
-                    newItem
-                ],
+                total: getTotalValue(cartList),
+                cartList,
             };
 
         case 'REMOVE_BOOK_FROM_CART': {
@@ -68,6 +73,7 @@ const updateCart = (state, action) => {
 
             return {
                 ...state.cart,
+                total: getTotalValue(cartList),
                 cartList,
             };
         }
@@ -77,6 +83,7 @@ const updateCart = (state, action) => {
 
             return {
                 ...state.cart,
+                total: getTotalValue(cartList),
                 cartList
             };
         }
@@ -86,6 +93,7 @@ const updateCart = (state, action) => {
 
             return {
                 ...state.cart,
+                total: getTotalValue(cartList),
                 cartList,
             };
         }

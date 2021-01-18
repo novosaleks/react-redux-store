@@ -1,9 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import './app-header.scss';
 
-const AppHeader = () => {
+const AppHeader = ({count, total}) => {
     return (
         <header className="app__header">
             <div className='container'>
@@ -13,7 +14,7 @@ const AppHeader = () => {
                     </h1>
                     <Link to='/cart' className="app__header-basket d-flex align-items-center">
                         <i className="bi bi-cart3 align-self-start"/>
-                        <span className='app__header-descr'>5 items (200$)</span>
+                        <span className='app__header-descr'>{count} items ({total}$)</span>
                     </Link>
                 </div>
                 <hr/>
@@ -22,4 +23,11 @@ const AppHeader = () => {
     );
 };
 
-export default AppHeader;
+const mapStateToProps = ({cart: {total, cartList}}) => {
+    return {
+        total,
+        count: cartList.reduce((acc, item) => acc + item.count, 0),
+    }
+}
+
+export default connect(mapStateToProps)(AppHeader);

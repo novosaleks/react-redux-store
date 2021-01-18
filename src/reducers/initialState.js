@@ -6,7 +6,7 @@ const initialState = {
     },
     cart: {
         cartList: [],
-        total: 100241,
+        total: 0,
     }
 };
 
